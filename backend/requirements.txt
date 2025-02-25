@@ -1,0 +1,16 @@
+easyocr
+ffmpeg-python
+torch
+transformers
+langchain
+langchain-core
+keybert
+stopwordsiso
+av
+opencv-python
+matplotlib
+numpy
+pillow
+fastapi
+uvicorn
+pydantic
