@@ -25,7 +25,7 @@ Follow the steps below to clone the repository, install dependencies, and start 
 git clone https://github.com/buttaRahul/multimodal_video_summarization.git
 
 # Navigate to the project directory
-cd Rag-QuerySystem
+cd multimodal_video_summarization
 ```
 ---
 
