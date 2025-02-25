@@ -86,10 +86,8 @@ def key_timestamps(transcript_data, num_timestamps=50):
 
     transcript_text = transcript_data["text"]
 
-    # Split sentences based on common sentence-ending punctuation
     sentences = re.split(r'(?<=[.!?])\s+', transcript_text.strip())
 
-    # Extract keywords
     keywords = kw_model.extract_keywords(
         transcript_text, 
         keyphrase_ngram_range=(1, 2), 
@@ -97,7 +95,6 @@ def key_timestamps(transcript_data, num_timestamps=50):
         top_n=num_timestamps
     )
 
-    # Extract key sentences by checking if they contain the keywords
     key_sentences = [s for s in sentences if any(kw in s for kw, _ in keywords)]
 
     key_sentence_timestamps = {}
@@ -164,21 +161,17 @@ def generate_frame_descriptions(image_caption_model, frames):
     frame_descriptions = []
 
     for frame in frames:
-        # Decode the base64 frame into an image
         frame_bytes = base64.b64decode(frame)
         frame_image = Image.open(BytesIO(frame_bytes))
 
-        # Process the image with BlipProcessor
         blip_inputs = blip_processor(frame_image, return_tensors="pt").to(device)
         blip_output = blip_model.generate(**blip_inputs)
         blip_caption = blip_processor.decode(blip_output[0], skip_special_tokens=True)
 
-        # Use EasyOCR to extract text from the frame
         reader = easyocr.Reader(['en', 'hi'])
         ocr_results = reader.readtext(np.array(frame_image), detail=0)
         ocr_text = " ".join(ocr_results)  
 
-        # Combine the caption and OCR text
         full_caption = f"{blip_caption}. OCR Text: {ocr_text}"
         frame_descriptions.append(full_caption)
 
@@ -186,7 +179,7 @@ def generate_frame_descriptions(image_caption_model, frames):
 
 
 def generate_video_summary(video_path, audio_path, transcription_model, image_caption_model, llm):
-    print("IN GENERATE VIDEO SUMMARY")
+    # print("IN GENERATE VIDEO SUMMARY")
     extract_audio(video_path, audio_path)
     transcript_data = generate_transcript(audio_path, transcription_model)
     key_sentence_timestamps = key_timestamps(transcript_data)

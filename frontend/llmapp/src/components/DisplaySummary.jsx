@@ -89,6 +89,7 @@ const DisplaySummary = ({ url }) => {
         <Fade in={Boolean(summary)} timeout={500}>
           <Card elevation={3} sx={{ borderRadius: 2, p: 2, bgcolor: "white" }}>
             <CardContent>
+                
               <Typography variant="h6" sx={{ fontWeight: "bold", color: "primary.main" }}>
                 📜 Summary
               </Typography>

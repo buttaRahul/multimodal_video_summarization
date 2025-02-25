@@ -4,17 +4,16 @@ import os
 def download_video_from_url(url):
     options = {
         'outtmpl': 'F:/multimodal_video_summarization/backend/%(title)s.%(ext)s',  
-        'format': 'bestvideo+bestaudio/best',  # Ensures MP4 download
-        'merge_output_format': 'mp4',  # Forces MP4 format
+        'format': 'bestvideo+bestaudio/best',  
+        'merge_output_format': 'mp4',  
     }   
     
     with YoutubeDL(options) as ydl:
-        info_dict = ydl.extract_info(url, download=True)  # Extract video info
-        file_path = ydl.prepare_filename(info_dict)  # Get actual file path
+        info_dict = ydl.extract_info(url, download=True)  
+        file_path = ydl.prepare_filename(info_dict)  
     
-    # Ensure the file has the correct .mp4 extension
     base, ext = os.path.splitext(file_path)
-    if ext.lower() != '.mp4':  # If not mp4, rename it
+    if ext.lower() != '.mp4':  
         new_file_path = base + '.mp4'
         os.rename(file_path, new_file_path)
         return new_file_path
